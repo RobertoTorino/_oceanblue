@@ -17,7 +17,9 @@
 ### Info
 
 **Project to show how to implement some media attributes and visualizations on a website using mostly css and html.**           
-**Also, a brief explanation on how to build a podman container for this static website and run this locally.**              
+**Also, a brief explanation on how to build a podman container for this static website and run this locally.**   
+
+**Live demo on YouTube on how to build the podman container here: [live demo](https://youtu.be/wl8PbUh8YbI)**
 
 ### Page One (index.html) main elements
 
