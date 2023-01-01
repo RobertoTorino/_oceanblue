@@ -17,7 +17,7 @@
 ### Info
 
 **Project to show how to implement some media attributes and visualizations on a website using mostly css and html.**           
-**Also, a brief explanation on how to build a docker container for this static website and run this locally.**              
+**Also, a brief explanation on how to build a podman container for this static website and run this locally.**              
 
 ### Page One (index.html) main elements
 
