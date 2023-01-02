@@ -9,18 +9,6 @@ The most heard drawback is the DNS resolver issues. These issues are due to a bu
 **Configuration of your Docker file, it uses a very small Alpine Linux image.**
 **Place the Docker.file in the root of your project with this content (of course you can adjust everything to your settings):**                
 
-```
-FROM docker.io/library/alpine:latest
-LABEL "copyright"="&copy 2023 Philip aka RobertoTorino"
-LABEL version="1.0"
-LABEL description="oceanblue"
-COPY . /etc/nginx/html
-EXPOSE 80/tcp
-RUN apk update && apk add nginx && apk add nano && mkdir -p /run/nginx && apk add curl shadow bind-tools tcpdump
-COPY nginx/nginx.conf /etc/nginx
-CMD ["nginx", "-g", "daemon off;"]
-HEALTHCHECK --interval=1m --timeout=3s CMD curl -f http://localhost/ || exit 1
-```
 
 ### Docker commands
 
@@ -47,35 +35,6 @@ HEALTHCHECK --interval=1m --timeout=3s CMD curl -f http://localhost/ || exit 1
 | enable debug mode:                                | docker -D                                                            |                                                           |
 | view image labels                                 | docker image inspect --format='' <image_id>>                         |                                                           |
 
-```
-run app: 
-http://127.0.0.1/
-```
-
-### Some common errors when running Docker and their solutions
-
-_Error: pull access denied repository does not exist or may require docker login._                                     
-To prevent this error, run docker build with -f <Dockerfile                                    
-docker build -t alpine:0.0.1 -f Dockerfile.
-
-_Docker: ERROR [internal] load metadata for docker.io_                                    
-To prevent this error, in Docker Desktop, navigate to Settings Docker Engine, change buildkit to false in the Docker
-daemon configuration file and then click "Apply & Restart". Example:
-
-```shell
-{                          
-"builder": {                        
-"gc": {                             
-"defaultKeepStorage": "20GB",                           
-"enabled": true                         
-}                       
-},                          
-"experimental": false,                        
-"features": {                        
-"buildkit": false                       
-}                       
-}
-```
 
 ### get the list of dependent child images
 
