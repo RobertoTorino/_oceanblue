@@ -8,7 +8,7 @@ then
   mkdir -p "$DIR" && chmod -R 755 "$DIR"
 fi
 
-URL=$"http://localhost:9990"
+URL=$"http://localhost:9995"
 process_id=$!
 DATE=$(date +"%Y-%m-%dT%H:%M:%S")
 
@@ -35,7 +35,7 @@ docker build -t oceanblue:latest -f Dockerfile .
 echo "new alpine image build"
 wait $process_id
 
-docker run -dt --name oceanblue_app -p 9990:80 oceanblue:latest
+docker run -dt --name oceanblue_app -p 9995:80 oceanblue:latest
 echo "running new container now"
 wait $process_id
 
