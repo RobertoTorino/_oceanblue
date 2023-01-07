@@ -16,26 +16,26 @@ DATE=$(date +"%Y-%m-%dT%H:%M:%S")
 exec > >(tee -i logs/"$DATE"-image-build.log)
 exec 2>&1
 
-docker stop oceanblue_app
+podman stop oceanblue_app
 echo "container stopped"
 wait $process_id
 
-docker rm oceanblue_app
+podman rm oceanblue_app
 wait $process_id
 echo "container removed"
 
-docker rmi alpine
+podman rmi alpine
 wait $process_id
 
-docker rmi oceanblue
+podman rmi oceanblue
 wait $process_id
 echo "alpine images removed"
 
-docker build -t oceanblue:latest -f Dockerfile .
+podman build -f Dockerfile.pm --format docker -t oceanblue:latest .
 echo "new alpine image build"
 wait $process_id
 
-docker run -dt --name oceanblue_app -p 9990:80 oceanblue:latest
+podman run -dt --name oceanblue_app -p 9990:80 oceanblue:latest
 echo "running new container now"
 wait $process_id
 
