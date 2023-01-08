@@ -8,7 +8,8 @@ then
   mkdir -p "$DIR" && chmod -R 755 "$DIR"
 fi
 
-URL=$"http://localhost:9995"
+URL1=$"http://localhost:8888"
+URL2=$"http://localhost:9999/nginx-health"
 process_id=$!
 DATE=$(date +"%Y-%m-%dT%H:%M:%S")
 
@@ -16,11 +17,11 @@ DATE=$(date +"%Y-%m-%dT%H:%M:%S")
 exec > >(tee -i logs/"$DATE"-image-build.log)
 exec 2>&1
 
-docker stop oceanblue_app
-echo "container stopped"
+docker stop oceanblue-app
 wait $process_id
+echo "container stopped"
 
-docker rm oceanblue_app
+docker rm oceanblue-app
 wait $process_id
 echo "container removed"
 
@@ -32,21 +33,38 @@ wait $process_id
 echo "alpine images removed"
 
 docker build -t oceanblue:latest -f Dockerfile .
+wait $process_id
 echo "new alpine image build"
-wait $process_id
 
-docker run -dt --name oceanblue_app -p 9995:80 oceanblue:latest
-echo "running new container now"
+#docker scan oceanblue
+#wait $process_id
+#echo "scanned docker oceanblue image with snyk"
+
+#docker scan alpine
+#wait $process_id
+#echo "scanned docker alpine image with snyk"
+
+docker run -dt --name oceanblue-app -p 8888:80 -p 9999:90 oceanblue:latest
 wait $process_id
+echo "running new container now"
 
 echo "Exit status: $?"
 echo "all processes finished"
 
-[[ -x $BROWSER ]] && exec "$BROWSER" "$URL"
-path=$(which xdg-open || which gnome-open) && exec "$path" "$URL"
-if open -Ra "Google Chrome" --args --incognito "$URL"; then
+[[ -x $BROWSER ]] && exec "$BROWSER" "$URL1"
+path=$(which xdg-open || which gnome-open) && exec "$path" "$URL1"
+if open -Ra "Google Chrome" --args --incognito "$URL1"; then
   echo "opening application now"
-  open -na "Google Chrome" --args --incognito "$URL"
+  open -na "Google Chrome" --args --incognito "$URL1"
+else
+  echo "no system browser installed"
+fi
+
+[[ -x $BROWSER ]] && exec "$BROWSER" "$URL2"
+path=$(which xdg-open || which gnome-open) && exec "$path" "$URL2"
+if open -Ra "Google Chrome" --args --incognito "$URL2"; then
+  echo "opening healthcheck now"
+  open -na "Google Chrome" --args --incognito "$URL2"
 else
   echo "no system browser installed"
 fi

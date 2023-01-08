@@ -16,11 +16,11 @@ DATE=$(date +"%Y-%m-%dT%H:%M:%S")
 exec > >(tee -i logs/"$DATE"-image-build.log)
 exec 2>&1
 
-docker stop oceanblue_app
+docker stop oceanblue-app
 echo "container stopped"
 wait $process_id
 
-docker rm oceanblue_app
+docker rm oceanblue-app
 wait $process_id
 echo "container removed"
 
@@ -30,6 +30,14 @@ wait $process_id
 docker rmi oceanblue
 wait $process_id
 echo "alpine images removed"
+
+docker image prune -a -f
+wait $process_id
+echo "all non-active images removed"
+
+docker system prune --volumes -f
+wait $process_id
+echo removed all stopped containers, all networks, all volumes, all dangling images, all build cache
 
 # exit script after 10 seconds
 sleep 10
