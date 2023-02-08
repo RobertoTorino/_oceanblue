@@ -19,7 +19,7 @@ body {
     font-family: 'Raleway', sans-serif;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(-45deg, #000000FF, #07177AFF, #000000FF, #000000FF, #000000FF);
+    background: linear-gradient(-45deg, #030201FF, #07177AFF, #030201FF, #030201FF, #030201FF);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
@@ -51,12 +51,12 @@ body {
 
 div {
     position: relative;
-    width: 30vw;
-    height: 30vw;
-    line-height: 30vw;
+    width: 40vw;
+    height: 40vw;
+    line-height: 40vw;
     text-align: center;
     color: #252B37FF;
-    background-color: #000000FF;
+    background-color: #030201FF;
     border-radius: 50%;
     animation: textColor 10s ease infinite;
     box-shadow: 0 12px 16px 0 rgb(38, 197, 234), 0 17px 50px 0 rgb(7, 41, 231);
@@ -124,12 +124,13 @@ div:after {
     font-size: 80px;
     color: #FFFFFFFF;
     text-align: center;
+    justify-content: center;
     animation: glow 1s ease-in-out infinite alternate;
 }
 
 .media {
     text-align: center;
-    padding-bottom: 25px;
+    padding-bottom: 0;
     cursor: pointer;
 }
 
